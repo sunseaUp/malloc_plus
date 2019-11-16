@@ -51,15 +51,6 @@ void add_node(Malloc_Plus *_node)
 	_current_node->next = _node;
 	_current_node = _node;
 }
-int malloc_count(void *_malloc_plus)
-{
-	if (_malloc_plus == NULL)
-	{
-		return 0;
-	}
-	Malloc_Plus *malloc_p = _malloc_plus;
-	return malloc_p->count;
-}
 void print_malloc_plus(void)
 {
 	if (_head_node == NULL)
@@ -70,7 +61,7 @@ void print_malloc_plus(void)
 	Malloc_Plus *current_node = NULL;
 	while ((current_node = *current_node_addr)!= NULL)
 	{
-		printf("%s %dÄÚ´æÐ¹Â©\n",current_node->file_name,current_node->line);
+		printf("%s %då†…å­˜æ³„æ¼\n",current_node->file_name,current_node->line);
 		current_node_addr = &current_node->next;
 	}
 }
@@ -91,13 +82,13 @@ void create_leak_file(void)
 	FILE *f_w = fopen(file_name,"w");
 	if (f_w == NULL)
 	{
-		printf("´ò¿ª%sÊ§°Ü\n", file_name);
+		printf("æ‰“å¼€%så¤±è´¥\n", file_name);
 		return;
 	}
 	while ((current_node = *current_node_addr)!= NULL)
 	{
 		char buf[512] = {0};
-		sprintf(buf, "%s %dÐÐÄÚ´æÐ¹Â©\n", current_node->file_name, current_node->line);
+		sprintf(buf, "%s %dè¡Œå†…å­˜æ³„æ¼\n", current_node->file_name, current_node->line);
 		fputs(buf,f_w);
 		current_node_addr = &current_node->next;
 	}
@@ -128,7 +119,7 @@ void free_plus(void *_zone)
 		{
 			if (dst_node->zone != NULL)
 			{
-				printf("Ïú»ÙÁË%s %d\n",dst_node->file_name,dst_node->line);
+				printf("é”€æ¯äº†%s %d\n",dst_node->file_name,dst_node->line);
 				free(dst_node->zone);
 				dst_node->zone = NULL;
 			}
@@ -142,7 +133,7 @@ void free_plus(void *_zone)
 
 			if (dst_node->zone != NULL)
 			{
-				printf("Ïú»ÙÁË%s %d\n", dst_node->file_name, dst_node->line);
+				printf("é”€æ¯äº†%s %d\n", dst_node->file_name, dst_node->line);
 				free(dst_node->zone);
 				dst_node->zone = next_node->zone;
 			}
@@ -176,6 +167,6 @@ void destroy_malloc(void)
 	}
 	if (current_node == NULL && _head_node == NULL)
 	{
-		printf("Ïú»ÙÁËËùÓÐÒÑ¾­´´½¨µÄÄÚ´æ\n");
+		printf("é”€æ¯äº†æ‰€æœ‰å·²ç»åˆ›å»ºçš„å†…å­˜\n");
 	}
 }
