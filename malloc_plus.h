@@ -2,7 +2,6 @@
 typedef unsigned long long ULLONG;
 
 void *malloc_plus(ULLONG _byte_size, unsigned int _line,char *_file_name);
-int malloc_count(void *_malloc_plus);
 void free_plus(void *_malloc_plus);
 void destroy_malloc(void);
 void create_leak_file(void);
